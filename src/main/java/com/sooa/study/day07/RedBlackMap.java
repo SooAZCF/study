@@ -7,10 +7,17 @@ import java.util.Objects;
 public class RedBlackMap<K, V> {
     private transient Entry<K, V> root;
     private transient int size = 0;
+    private Comparator<? super K> comparator;
 
     //    构造函数
     public RedBlackMap() {
+        comparator = null;
     }
+
+    public RedBlackMap(Comparator<? super K> comparator) {
+        this.comparator = comparator;
+    }
+
 
     //    有key与value对应关联的put
     public V put(K key, V value) {
@@ -34,29 +41,52 @@ public class RedBlackMap<K, V> {
 //        存在已经存在的根节点
         Entry<K, V> temParent;//形参父节点
         int cmp;
-        do {
-            Comparator<? super K> comparator = null;
+//            调用者自己的比较器规则
+        Comparator<? super K> comp = comparator;
+        if (comparator != null) {
+            do {
 //            比较大小
-            temParent = temp;
-            cmp = comparator.compare(key, temParent.key);
+                temParent = temp;
+                cmp = comp.compare(key, temParent.key);
 //            切换为左右子节点
-            if (cmp < 0) temParent = temp.left;
-            else if (cmp > 0) temParent = temp.right;
-            else {
+                if (cmp < 0) temp = temp.left;
+                else if (cmp > 0) temp = temp.right;
+                else {
 //                返回该key的旧value
-                V oldValue = temp.value;
-                if (replaceOld/*value是否可替代*/ || oldValue == null/*该key对用空value*/) {
-                    temp.value = value;
+                    V oldValue = temp.value;
+                    if (replaceOld/*value是否可替代*/ || oldValue == null/*该key对用空value*/) {
+                        temp.value = value;
+                    }
+                    return oldValue;
                 }
-                return oldValue;
-            }
-        } while (temp != null);
+            } while (temp != null);
+        } else {
+            do {
+//            比较大小
+                temParent = temp;
+//                它自己的比较器
+                Comparable<? super K> k = (Comparable<? super K>) key;
+                cmp = k.compareTo(temParent.key);
+//            切换为左右子节点
+                if (cmp < 0) temp = temp.left;
+                else if (cmp > 0) temp = temp.right;
+                else {
+//                返回该key的旧value
+                    V oldValue = temp.value;
+                    if (replaceOld/*value是否可替代*/ || oldValue == null/*该key对用空value*/) {
+                        temp.value = value;
+                    }
+                    return oldValue;
+                }
+            } while (temp != null);
+        }
 //        存在不存在的根节点
         Entry<K, V> target = new Entry<>(key, value, temParent);
         if (cmp < 0) temParent.left = target;
         else temParent.right = target;
 //        修正红黑颜色
         fixAfterInsertion(target);
+        size++;
         return null;
     }
 
@@ -65,10 +95,12 @@ public class RedBlackMap<K, V> {
 
     }
 
+    //    左旋
     private void leftRotate(Entry<K, V> target) {
 
     }
 
+    //    右旋
     private void rightRotate(Entry<K, V> target) {
 
     }
