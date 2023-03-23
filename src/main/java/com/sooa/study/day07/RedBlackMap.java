@@ -78,6 +78,7 @@ public class RedBlackMap<K, V> {
                     }
                     return oldValue;
                 }
+
             } while (temp != null);
         }
 //        存在不存在的根节点
@@ -92,7 +93,132 @@ public class RedBlackMap<K, V> {
 
     //    红黑树核心逻辑
     private void fixAfterInsertion(Entry<K, V> target) {
+//        非根
+        while (target != null && target != root && colorOf(parentOf(target)) == Entry.RED) {
+//            祖父
+            Entry<K, V> grand = parentOf(parentOf(target));
+            Entry<K, V> father = parentOf(target);
+//            target节点设为红色
+            target.setColor(Entry.RED);
+//            父为左兄弟
+            if (father == leftOf(grand)) {
+                Entry<K, V> uncle = rightOf(grand);//叔叔
+                if (uncle.isColor() == Entry.RED) {
+                    father.setColor(Entry.BLACK);
+                    uncle.setColor(Entry.BLACK);
+                    grand.setColor(Entry.RED);
+                    target = grand;
+                } else {
+                    if (target == leftOf(father)) {
+                        father.setColor(Entry.BLACK);
+                        grand.setColor(Entry.RED);
+                        rightRotate(grand);
+                    } else {
+                        leftRotate(father);
+                        target = father;
+                    }
+                }
+            } else {
+                Entry<K, V> uncle = leftOf(grand);
+                if (uncle.isColor() == Entry.RED) {
+                    father.setColor(Entry.BLACK);
+                    uncle.setColor(Entry.BLACK);
+                    grand.setColor(Entry.RED);
+                    if (grand == root) grand.setColor(Entry.BLACK);
+                    else target = grand;
+                } else {
+                    if (target == leftOf(father)) {
+                        father.setColor(Entry.BLACK);
+                        grand.setColor(Entry.RED);
+                        rightRotate(grand);
+                    } else {
+                        leftRotate(father);
+                        target = father;
+                    }
+                }
+            }
 
+        }
+//        为根
+//        默认黑色
+        root.setColor(Entry.BLACK);
+    }
+
+    /*    private void fixAfterDeletion(TreeMap.Entry<K,V> x) {
+            while (x != root && colorOf(x) == BLACK) {
+                if (x == leftOf(parentOf(x))) {
+                    TreeMap.Entry<K,V> sib = rightOf(parentOf(x));
+
+                    if (colorOf(sib) == RED) {
+                        setColor(sib, BLACK);
+                        setColor(parentOf(x), RED);
+                        rotateLeft(parentOf(x));
+                        sib = rightOf(parentOf(x));
+                    }
+
+                    if (colorOf(leftOf(sib))  == BLACK &&
+                            colorOf(rightOf(sib)) == BLACK) {
+                        setColor(sib, RED);
+                        x = parentOf(x);
+                    } else {
+                        if (colorOf(rightOf(sib)) == BLACK) {
+                            setColor(leftOf(sib), BLACK);
+                            setColor(sib, RED);
+                            rotateRight(sib);
+                            sib = rightOf(parentOf(x));
+                        }
+                        setColor(sib, colorOf(parentOf(x)));
+                        setColor(parentOf(x), BLACK);
+                        setColor(rightOf(sib), BLACK);
+                        rotateLeft(parentOf(x));
+                        x = root;
+                    }
+                } else { // symmetric
+                    TreeMap.Entry<K,V> sib = leftOf(parentOf(x));
+
+                    if (colorOf(sib) == RED) {
+                        setColor(sib, BLACK);
+                        setColor(parentOf(x), RED);
+                        rotateRight(parentOf(x));
+                        sib = leftOf(parentOf(x));
+                    }
+
+                    if (colorOf(rightOf(sib)) == BLACK &&
+                            colorOf(leftOf(sib)) == BLACK) {
+                        setColor(sib, RED);
+                        x = parentOf(x);
+                    } else {
+                        if (colorOf(leftOf(sib)) == BLACK) {
+                            setColor(rightOf(sib), BLACK);
+                            setColor(sib, RED);
+                            rotateLeft(sib);
+                            sib = leftOf(parentOf(x));
+                        }
+                        setColor(sib, colorOf(parentOf(x)));
+                        setColor(parentOf(x), BLACK);
+                        setColor(leftOf(sib), BLACK);
+                        rotateRight(parentOf(x));
+                        x = root;
+                    }
+                }
+            }
+
+            setColor(x, BLACK);
+        }*/
+    private Entry<K, V> leftOf(Entry<K, V> target) {
+        return target == null ? null : target.getLeft();
+    }
+
+    private Entry<K, V> rightOf(Entry<K, V> target) {
+        return target == null ? null : target.getRight();
+    }
+
+    private Entry<K, V> parentOf(Entry<K, V> target) {
+        return target == null ? null : target.getParent();
+    }
+
+    private boolean colorOf(Entry<K, V> target) {
+        return target == null ? Entry.BLACK : target.isColor();
     }
 
     //    左旋
@@ -132,16 +258,48 @@ public class RedBlackMap<K, V> {
         K key;
         V value;
 
-        Entry<K, V> parent;
-        Entry<K, V> left;
-        Entry<K, V> right;
+        private Entry<K, V> parent;
+        private Entry<K, V> left;
+        private Entry<K, V> right;
 
-        boolean color = BLACK;
+        private boolean color = BLACK;
 
         Entry(K key, V value, Entry<K, V> parent) {
             this.key = key;
             this.value = value;
             this.parent = parent;
+        }
+
+        public Entry<K, V> getParent() {
+            return parent;
+        }
+
+        public void setParent(Entry<K, V> parent) {
+            this.parent = parent;
+        }
+
+        public Entry<K, V> getLeft() {
+            return left;
+        }
+
+        public void setLeft(Entry<K, V> left) {
+            this.left = left;
+        }
+
+        public Entry<K, V> getRight() {
+            return right;
+        }
+
+        public void setRight(Entry<K, V> right) {
+            this.right = right;
+        }
+
+        public boolean isColor() {
+            return color;
+        }
+
+        public void setColor(boolean color) {
+            this.color = color;
         }
 
         @Override
@@ -165,6 +323,10 @@ public class RedBlackMap<K, V> {
         @Override
         public K getKey() {
             return key;
+        }
+
+        public void setKey(K key) {
+            this.key = key;
         }
 
         @Override
