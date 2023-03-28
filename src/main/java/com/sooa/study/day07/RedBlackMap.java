@@ -1,10 +1,15 @@
 package com.sooa.study.day07;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.Objects;
 
-public class RedBlackMap<K, V> {
+public class RedBlackMap<K, V> implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = -1459063207081047629L;
     private transient Entry<K, V> root;
     private transient int size = 0;
     private Comparator<? super K> comparator;
@@ -13,6 +18,7 @@ public class RedBlackMap<K, V> {
     public RedBlackMap() {
         comparator = null;
     }
+
 
     public RedBlackMap(Comparator<? super K> comparator) {
         this.comparator = comparator;
