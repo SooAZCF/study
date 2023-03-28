@@ -8,7 +8,7 @@ public class test {
 
     static class V {
         void test(long t) {
-            System.out.println("long");
+            System.out.println("l 撒大大g");
         }
 
         void test(double t) {
