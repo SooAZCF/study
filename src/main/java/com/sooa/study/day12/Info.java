@@ -4,7 +4,10 @@ import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,6 +45,30 @@ public class Info {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static void generateInfo(int boyNum, int girlNum, String path) throws IOException {
+        File file = new File(path);
+        if (path.endsWith(".txt")) {
+            writeToFile(boyNum, girlNum, file);
+        } else {
+            writeToFile(boyNum, girlNum, new File(file, file.getName() + ".txt"));
+        }
+    }
+
+    private static void writeToFile(int boyNum, int girlNum, File file) throws IOException {
+        ArrayList<String> arrayList = generateInfo(boyNum, girlNum);
+        FileWriter fileWriter = new FileWriter(file);
+        BufferedWriter bw = new BufferedWriter(fileWriter);
+        arrayList.forEach(o -> {
+            try {
+                bw.write(o);
+                bw.newLine();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        fileWriter.close();
     }
 
     public static ArrayList<String> generateInfo(int boyNum, int girlNum) {
@@ -88,17 +115,6 @@ public class Info {
             list.add(m.group(index));
         }
         return list;
-    }
-
-    private static void writeToFIle(ArrayList<String> characterArr, String path) throws IOException {
-        FileOutputStream fos = new FileOutputStream(path);
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
-        Iterator<String> it = characterArr.iterator();
-        while (it.hasNext()) {
-            bw.write(it.next());
-            bw.newLine();
-        }
-        bw.close();
     }
 
     private static String webCrawler(String site) throws IOException {
