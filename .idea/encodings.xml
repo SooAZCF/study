@@ -5,7 +5,9 @@
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources/aa.txt" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources/aaa/a.txt" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/新建文本文档.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/char.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/info.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/新建文本文档.txt" charset="GBK" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
