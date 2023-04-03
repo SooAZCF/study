@@ -48,12 +48,25 @@ public class Info {
     }
 
     public static void generateInfo(int boyNum, int girlNum, String path) throws IOException {
+//        判断 结尾 ---- 文件还是文件夹
         File file = new File(path);
         if (path.endsWith(".txt")) {
-            writeToFile(boyNum, girlNum, file);
+//            文件，文件夹存在直接写入，
+            if (file.exists()) writeToFile(boyNum, girlNum, file);
+            else {
+                file.getParentFile().mkdirs();
+                writeToFile(boyNum, girlNum, file);
+            }
         } else {
-            writeToFile(boyNum, girlNum, new File(file, file.getName() + ".txt"));
+            if (file.exists()) writeToFile(boyNum, girlNum, new File(file, file.getName() + ".txt"));
+            else {
+                file.getParentFile().mkdirs();
+                File k = new File(file, file.getName() + ".txt");
+                k.createNewFile();
+                writeToFile(boyNum, girlNum, k);
+            }
         }
+//        判断存在 -------文件不存在，mk上级目录，create文件； 文件夹不存在创造目录
     }
 
     private static void writeToFile(int boyNum, int girlNum, File file) throws IOException {
@@ -68,7 +81,7 @@ public class Info {
                 throw new RuntimeException(e);
             }
         });
-        fileWriter.close();
+        bw.close();
     }
 
     public static ArrayList<String> generateInfo(int boyNum, int girlNum) {
@@ -126,6 +139,7 @@ public class Info {
         while ((chs = isr.read()) != -1) {
             sb.append((char) chs);
         }
+        isr.close();
         return sb.toString();
     }
 }
