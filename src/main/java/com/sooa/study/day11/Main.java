@@ -2,7 +2,9 @@ package com.sooa.study.day11;
 
 import java.util.Arrays;
 
-public class Main {
+public class Main extends sss {
+
+
     public static void main(String[] args) {
         int[] k = new int[]{9, 5, 1, 4, 8, 6, 5, 5};
         bubble(k);//冒泡排序 首先排出最大，然后次大，所以内层循环可以少一次遍历
