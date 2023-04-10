@@ -193,6 +193,7 @@ public class NoteUI extends JFrame implements ActionListener {
         }
 //        删除
         if (deleteButton.equals(source)) {
+
             System.out.println("删除");
         }
     }
