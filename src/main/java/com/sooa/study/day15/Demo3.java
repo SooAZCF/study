@@ -22,14 +22,23 @@ public class Demo3 {
 
         @Override
         public void run() {
-            target = checkSingle(target);
+            for (int i = 0; i < 100; i++) {
+                synchronized (Demo3.class) {
+                    target = checkSingle(target);
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
         }
 
-        private synchronized int checkSingle(int target) {
+        private int checkSingle(int target) {
             if (target < 1) return -1;
             if (target % 2 == 1)
                 System.out.println(Thread.currentThread().getName() + target + "为奇数");
-            target -= 2;
+            target--;
             return target;
         }
     }
