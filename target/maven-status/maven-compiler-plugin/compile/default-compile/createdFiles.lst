@@ -6,9 +6,12 @@ com\sooa\study\day15\Demo3$MyThread.class
 com\sooa\study\day15\Demo6$Box.class
 com\sooa\study\day11\Main.class
 com\sooa\study\day16\Demo1.class
+com\sooa\study\day17\ReceiverApp.class
+com\sooa\study\day17\SenderApp.class
 com\sooa\study\day15\Demo1.class
 com\sooa\study\other1\test\App.class
 com\sooa\study\other1\test\Student.class
+com\sooa\study\day17\Demo1.class
 com\sooa\study\day15\Demo6$MyThread.class
 com\sooa\study\day04\ttt.class
 com\sooa\study\day10\copyZIP.class
@@ -19,6 +22,7 @@ com\sooa\study\day13\test.class
 com\sooa\study\day14\Test$Window.class
 com\sooa\study\day15\Demo7$Box.class
 com\sooa\study\day15\Demo7$MyThread.class
+com\sooa\study\day17\Receiver.class
 com\sooa\study\day10\Testt.class
 com\sooa\study\day07\RedBlackMap$Entry.class
 com\sooa\study\day15\Demo7.class
@@ -37,6 +41,7 @@ com\sooa\study\day08\test$V.class
 com\sooa\study\day03\Test.class
 com\sooa\study\day09\Test3.class
 com\sooa\study\day15\Demo5$Box.class
+com\sooa\study\day17\Sender.class
 com\sooa\study\day01\Test.class
 com\sooa\study\day07\Main.class
 com\sooa\study\day07\RedBlackMap.class
@@ -68,6 +73,7 @@ com\sooa\study\day03\TTT.class
 com\sooa\study\day10\Testt$kk.class
 com\sooa\study\day09\ttt$moniter.class
 com\sooa\study\day16\Demo2.class
+com\sooa\study\day17\Demo2.class
 com\sooa\study\other1\CustomerList.class
 com\sooa\study\day12\Info.class
 com\sooa\study\day05\util\Encryption.class
