@@ -3,16 +3,16 @@
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/a59dce8d-22fc-429e-9cfe-824f5ea90316.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/a59dce8d-22fc-429e-9cfe-824f5ea90316.txt" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources/aa.txt" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/aaa.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/aaa.txt" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources/aaa/a.txt" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/char.txt" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/info.txt" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/infoed.txt" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/resources.txt" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/sss/ttt.txt" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/新建文本文档.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/char.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/info.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/infoed.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/resources.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/sss/ttt.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/新建文本文档.txt" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
