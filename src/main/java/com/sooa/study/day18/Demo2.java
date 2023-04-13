@@ -1,39 +1,24 @@
 package com.sooa.study.day18;
 
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.lang.reflect.Field;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
-import java.util.UUID;
+import java.util.Properties;
 
-public class Demo1 {
-    public static void main(String[] args) {
-        Student student = new Student("你爹", 66, '男', 193, "进入小学");
-        try {
-            saveObject(student);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static void saveObject(Student student) throws IllegalAccessException, IOException {
-        Field[] fields = student.getClass().getDeclaredFields();
-        FileOutputStream fos = null;
-        String uid = UUID.randomUUID().toString();
-        for (Field field : fields) {
-            field.setAccessible(true);
-            String value = field.getName() + "=" + field.get(student);
-            try {
-                fos = new FileOutputStream(new File("src/main/resources/" + uid + ".txt"), true);
-                fos.write((value + "\r\n").getBytes());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        fos.close();
+public class Demo2 {
+    public static void main(String[] args) throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+//        加载prop文件
+        Properties properties = new Properties();
+        properties.load(new FileInputStream(new File("src/main/resources/prop.properties")));
+//        获取prop信息
+        String classname = (String) properties.get("classname");
+        Class clazz = Class.forName(classname);
+        Constructor constructor = clazz.getDeclaredConstructor(String.class, int.class, char.class, double.class, String.class);//不写参数class就为空参构造
+        Student o = (Student) constructor.newInstance("你爹", 66, '男', 166, "找你爹");
+        System.out.println(o);
     }
 
     static class Student {
@@ -47,7 +32,7 @@ public class Demo1 {
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
-            Student student = (Student) o;
+            Demo1.Student student = (Demo1.Student) o;
             return age == student.age && gender == student.gender && Double.compare(student.height, height) == 0 && Objects.equals(name, student.name) && Objects.equals(hobby, student.hobby);
         }
 
